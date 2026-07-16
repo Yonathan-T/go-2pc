@@ -1,0 +1,6 @@
+{"tx_id":"tx-001","event":"PREPARED","timestamp":"2026-07-16T23:18:58.7127882+03:00"}
+{"tx_id":"tx-001","event":"COMMITTED","timestamp":"2026-07-16T23:18:58.7184347+03:00"}
+{"tx_id":"tx-fail","event":"ABORTED","timestamp":"2026-07-16T23:18:58.7332859+03:00"}
+{"tx_id":"tx-001","event":"PREPARED","timestamp":"2026-07-16T23:22:53.7504224+03:00"}
+{"tx_id":"tx-001","event":"COMMITTED","timestamp":"2026-07-16T23:22:53.7555051+03:00"}
+{"tx_id":"tx-fail","event":"ABORTED","timestamp":"2026-07-16T23:22:53.7607521+03:00"}
