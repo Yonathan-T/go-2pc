@@ -1,0 +1,12 @@
+{"tx_id":"tx-001","event":"STARTED","timestamp":"2026-07-16T23:18:58.7083851+03:00"}
+{"tx_id":"tx-001","event":"GLOBAL_COMMIT","timestamp":"2026-07-16T23:18:58.7167084+03:00"}
+{"tx_id":"tx-001","event":"DONE","timestamp":"2026-07-16T23:18:58.7223211+03:00"}
+{"tx_id":"tx-fail","event":"STARTED","timestamp":"2026-07-16T23:18:58.7303498+03:00"}
+{"tx_id":"tx-fail","event":"GLOBAL_ABORT","timestamp":"2026-07-16T23:18:58.7366122+03:00"}
+{"tx_id":"tx-fail","event":"DONE","timestamp":"2026-07-16T23:18:58.7409929+03:00"}
+{"tx_id":"tx-001","event":"STARTED","timestamp":"2026-07-16T23:22:53.7268917+03:00"}
+{"tx_id":"tx-001","event":"GLOBAL_COMMIT","timestamp":"2026-07-16T23:22:53.7540387+03:00"}
+{"tx_id":"tx-001","event":"DONE","timestamp":"2026-07-16T23:22:53.7583816+03:00"}
+{"tx_id":"tx-fail","event":"STARTED","timestamp":"2026-07-16T23:22:53.7600996+03:00"}
+{"tx_id":"tx-fail","event":"GLOBAL_ABORT","timestamp":"2026-07-16T23:22:53.7641794+03:00"}
+{"tx_id":"tx-fail","event":"DONE","timestamp":"2026-07-16T23:22:53.7660946+03:00"}
