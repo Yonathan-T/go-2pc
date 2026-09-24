@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package TwoPhaseCommit;
+
+option go_package = "Two-Phase-Commit/proto";
+
+service ParticipantService {
+    rpc Prepare(PrepareRequest) returns (PrepareResponse);
+    rpc Commit(CommitRequest) returns (CommitResponse);
+    rpc Abort(AbortRequest) returns (AbortResponse);
+    rpc Get(GetRequest) returns (GetResponse);
+    rpc GetAll(GetAllRequest) returns (GetAllResponse);
+}
+
+enum Vote {
+    VOTE_YES = 0;
+    VOTE_NO = 1;
+}
+
+message PrepareRequest {
+    string tx_id = 1;
+    string payload = 2;
+    map<string, string> data = 3;
+}
+
+message PrepareResponse {
+    Vote vote = 1;
+    string error = 2;
+}
+
+message CommitRequest {
+    string tx_id = 1;
+}
+
+message CommitResponse {
+    bool ok = 1;
+    string error = 2;
+}
+
+message AbortRequest {
+    string tx_id = 1;
+}
+
+message AbortResponse {
+    bool ok = 1;
+    string error = 2;
+}
+
+message GetRequest {
+    string key = 1;
+}
+
+message GetResponse {
+    string value = 1;
+    bool found = 2;
+}
+
+message GetAllRequest {
+
+}
+
+message GetAllResponse {
+    map<string, string> data = 1;
+}

@@ -33,6 +33,7 @@ const (
 	OpSet OpType = "SET"
 	OpGet OpType = "GET"
 	OpDel OpType = "DEL"
+	OpKeys OpType = "KEYS"
 )
 
 type Operation struct {
@@ -85,7 +86,10 @@ func ParseCommand(input string) (Operation, error) {
 		}
 		return Operation{Type: OpGet, Key: parts[1]}, nil
 
+	case OpKeys:
+		return Operation{Type: OpKeys}, nil
+
 	default:
-		return Operation{}, fmt.Errorf("unknown command %q (expected SET, GET, or DEL)", cmd)
+		return Operation{}, fmt.Errorf("unknown command %q (expected SET, GET, DEL, or KEYS)", cmd)
 	}
 }

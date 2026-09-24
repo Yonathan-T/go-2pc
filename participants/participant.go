@@ -203,3 +203,13 @@ func (p *Node) GetData(key string) (string, bool) {
 	val, exists := p.data[key]
 	return val, exists
 }
+
+func (p *Node) GetAllData() map[string]string {
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	data := make(map[string]string)
+	for k, v := range p.data {
+		data[k] = v
+	}
+	return data
+}
