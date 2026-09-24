@@ -4,3 +4,13 @@
 {"tx_id":"tx-001","event":"PREPARED","timestamp":"2026-07-16T23:22:53.7504224+03:00"}
 {"tx_id":"tx-001","event":"COMMITTED","timestamp":"2026-07-16T23:22:53.7555051+03:00"}
 {"tx_id":"tx-fail","event":"ABORTED","timestamp":"2026-07-16T23:22:53.7607521+03:00"}
+{"tx_id":"tx-001","event":"PREPARED","timestamp":"2026-07-16T23:47:46.6706884+03:00"}
+{"tx_id":"tx-001","event":"COMMITTED","timestamp":"2026-07-16T23:47:46.6728631+03:00"}
+{"tx_id":"tx-fail","event":"ABORTED","timestamp":"2026-07-16T23:47:46.6768977+03:00"}
+{"tx_id":"tx-001","event":"PREPARED","timestamp":"2026-09-24T19:30:45.2335891+03:00"}
+{"tx_id":"tx-001","event":"COMMITTED","timestamp":"2026-09-24T19:30:45.2397788+03:00"}
+{"tx_id":"tx-fail","event":"ABORTED","timestamp":"2026-09-24T19:30:45.2450506+03:00"}
+{"tx_id":"tx-1","event":"PREPARED","op":{"Type":"SET","Key":"name","Val":"\"Yonathan\""},"timestamp":"2026-09-24T20:47:50.0128807+03:00"}
+{"tx_id":"tx-1","event":"COMMITTED","timestamp":"2026-09-24T20:47:50.016532+03:00"}
+{"tx_id":"tx-1","event":"PREPARED","op":{"Type":"SET","Key":"name","Val":"test"},"timestamp":"2026-09-24T21:00:31.6806077+03:00"}
+{"tx_id":"tx-1","event":"COMMITTED","timestamp":"2026-09-24T21:00:31.6850203+03:00"}

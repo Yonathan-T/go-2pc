@@ -60,8 +60,7 @@ func TestCoordinator_OneNoVote_Aborts(t *testing.T) {
 
 	parts := []participants.Participant{
 		&mockParticipant{vote: protocol.VOTE_YES},
-		&mockParticipant{vote: protocol.VOTE_NO}, // should trigger an abort
-	}
+		&mockParticipant{vote: protocol.VOTE_NO}}
 
 	c := NewCoordinator(w, parts, 1*time.Second)
 
@@ -139,5 +138,57 @@ func TestCoordinator_Recovery(t *testing.T) {
 	}
 	if entries[1].Event != "GLOBAL_ABORT" || entries[2].Event != "DONE" {
 		t.Errorf("expected GLOBAL_ABORT and DONE, got %s, %s", entries[1].Event, entries[2].Event)
+	}
+}
+func TestCoordinator_CrashAfterGlobalCommit_RecoversData(t *testing.T) {
+	dir := t.TempDir()
+	coordWalPath := filepath.Join(dir, "coord.wal")
+	p1WalPath := filepath.Join(dir, "p1.wal")
+	p2WalPath := filepath.Join(dir, "p2.wal")
+
+	w1, _ := wal.NewWAL(p1WalPath)
+	p1 := participants.NewNode("P1", w1)
+	defer w1.Close()
+
+	w2, _ := wal.NewWAL(p2WalPath)
+	p2 := participants.NewNode("P2", w2)
+	defer w2.Close()
+
+	tx := protocol.Transaction{
+		ID:   "tx-500",
+		Data: map[string]string{"server:status": "online"},
+	}
+	_, _ = p1.Prepare(tx)
+	_, _ = p2.Prepare(tx)
+
+	cw1, _ := wal.NewWAL(coordWalPath)
+	_ = cw1.Append(wal.LogEntry{TxID: tx.ID, Event: "STARTED"})
+	_ = cw1.Append(wal.LogEntry{TxID: tx.ID, Event: "GLOBAL_COMMIT"})
+	cw1.Close()
+
+	if p1.GetState("tx-500") != "PREPARED" || p2.GetState("tx-500") != "PREPARED" {
+		t.Fatalf("expected participants to be PREPARED before recovery")
+	}
+
+	if _, ok := p1.GetData("server:status"); ok {
+		t.Fatalf("data should NOT be visible before coordinator commits!")
+	}
+
+	cw2, _ := wal.NewWAL(coordWalPath)
+	defer cw2.Close()
+
+	coordRebooted := NewCoordinator(cw2, []participants.Participant{p1, p2}, 1*time.Second)
+	if err := coordRebooted.Recover(); err != nil {
+		t.Fatalf("coordinator recovery failed: %v", err)
+	}
+
+	if p1.GetState("tx-500") != "COMMITTED" {
+		t.Errorf("expected P1 COMMITTED, got %s", p1.GetState("tx-500"))
+	}
+	if val, ok := p1.GetData("server:status"); !ok || val != "online" {
+		t.Errorf("expected server:status=online on P1, got val=%s, ok=%v", val, ok)
+	}
+	if val, ok := p2.GetData("server:status"); !ok || val != "online" {
+		t.Errorf("expected server:status=online on P2, got val=%s, ok=%v", val, ok)
 	}
 }

@@ -7,12 +7,16 @@ import (
 	"os"
 	"sync"
 	"time"
+
+	"Two-Phase-Commit/protocol"
 )
 
 type LogEntry struct {
-	TxID      string    `json:"tx_id"`
-	Event     string    `json:"event"`
-	Timestamp time.Time `json:"timestamp"`
+	TxID      string              `json:"tx_id"`
+	Event     string              `json:"event"`
+	Op        *protocol.Operation `json:"op,omitempty"`
+	Data      map[string]string   `json:"data,omitempty"`
+	Timestamp time.Time           `json:"timestamp"`
 }
 
 type WAL struct {
