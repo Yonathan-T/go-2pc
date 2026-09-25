@@ -27,20 +27,25 @@ To keep this as an approachable learning tool, some real-world complexities were
 ## How to Run
 
 1.  **Clone the repo and navigate to it.**
-2.  **Start Participant 1 (Terminal 1):**
+2.  **Compile Protobuf files (if modified):**
+    ```bash
+    make proto
+    ```
+3.  **Start Participant 1 (Terminal 1):**
     ```bash
     go run ./cmd/participant -id P1 -port 50051 -wal logs/p1.wal
     ```
-3.  **Start Participant 2 (Terminal 2):**
+4.  **Start Participant 2 (Terminal 2):**
     ```bash
     go run ./cmd/participant -id P2 -port 50052 -wal logs/p2.wal
     ```
-4.  **Start the Coordinator TUI (Terminal 3):**
+5.  **Start the Coordinator TUI (Terminal 3):**
     ```bash
     go run ./cmd/coordinator
     ```
     Both nodes will show `ONLINE`. You can execute `SET`, `GET`, `DEL`, or `KEYS`. If you kill a participant (`Ctrl+C`), its indicator will switch to `OFFLINE` in real-time, causing writes to abort until revived.
-5.  **Run the Test Suite:**
+6.  **Run the Test Suite:**
     ```bash
     go test ./... -v
     ```
+
